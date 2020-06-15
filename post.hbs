@@ -1,0 +1,171 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+
+{{! Everything inside the #post tags pulls data from the post }}
+{{#post}}
+
+<header class="main-header post-head {{#if feature_image}}" style="background-image: url({{img_url feature_image}}){{else}}no-cover{{/if}}">
+    <nav class="main-nav {{#if feature_image}}overlay{{/if}} clearfix">
+        {{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
+        {{#if @blog.navigation}}
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+        {{/if}}
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="{{post_class}}">
+
+        <header class="post-header">
+            <h1 class="post-title">{{title}}</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
+            </section>
+        </header>
+
+        <section class="post-content">
+            {{content}}
+        </section>
+
+        <footer class="post-footer">
+        <section class="newsletter" id="newsletter">
+            <h4>Join the mailing list</h4>
+            <p>
+              Get updates to this article and new writing on software engineering, programming and lessons learned:
+            </p>
+            <!-- Begin Mailchimp Signup Form -->
+            <div id="mc_embed_signup">
+            <form action="https://huseyinpolatyuruk.us20.list-manage.com/subscribe/post?u=798b81b40752bc76b54f70d70&amp;id=c88d2fc506" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_798b81b40752bc76b54f70d70_c88d2fc506" tabindex="-1" value=""></div>
+                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+                </div>
+            </form>
+            </div>
+
+            <!--End mc_embed_signup-->
+        </section>
+        <section class="authorAndShare">
+            {{! Everything inside the #author tags pulls data from the author }}
+            {{#author}}
+
+                {{#if profile_image}}
+                <figure class="author-image">
+                    <a class="img" href="{{url}}" style="background-image: url({{image_url}})"><span class="hidden">{{name}}'s Picture</span></a>
+                </figure>
+                {{/if}}
+
+                <section class="author">
+                    <h4><a href="{{url}}">{{name}}</a></h4>
+
+                    {{#if bio}}
+                        <p>{{bio}}</p>
+                    {{else}}
+                        <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+                    {{/if}}
+                    <div class="author-meta">
+                        {{#if location}}<span class="author-location icon-location">{{location}}</span>{{/if}}
+                        {{#if website}}<span class="author-link icon-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
+                    </div>
+                </section>
+
+            {{/author}}
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text={{encode title}}&amp;url={{url absolute="true"}}"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url={{url absolute="true"}}"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+        </section>
+
+
+        </footer>
+
+        <!-- Disqus -->
+        <!--
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'pragmaticengineer';
+            var disqus_identifier = '{{post.id}}';
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        -->
+    </article>
+</main>
+
+<aside class="sidebar">
+  <a href="{{@blog.url}}"><img class="profile-image" src="{{@blog.logo}}" alt="" /></a>
+  <!--
+  // to display a custom image, copy the image into assets/img/profile-img.png and replace the previous line with this:
+  <img class="profile-image" src="{{asset "img/profile-image.png"}}" alt="" />
+  -->
+
+  <!--
+  // to display your name under the blog logo or profile image, uncomment this line:
+  <section class="publisher">by <strong>Gergely Orosz</strong></section>
+  -->
+
+  {{navigation}}
+
+  <!--
+  // Add any other links to the sidebar, under the navigation links here.
+  // For example to allow subscribing to your blog via Feedburner and email:
+    1. register it at feedburner.com and
+    2. change the below links to point to your blog
+    3. uncomment these lines:
+   -->
+    <ul>
+      <li><a href="http://feeds.feedburner.com/HuseyinPolatYuruk" class="elusive-icon rss">Subscribe in a reader</a></li>
+      <li><a href="{{@blog.url}}/newsletter" class="elusive-icon email">Subscribe via email</a></li>
+    </ul>
+
+
+  <footer class="site-footer clearfix">
+      <section class="copyright"><a href="{{@blog.url}}">{{@blog.title}}</a> &copy; {{date format="YYYY"}}</section>
+      <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+  </footer>
+
+</aside>
+
+<aside class="read-next">
+    {{#next_post}}
+    <a class="read-next-story {{#if feature_image}}" style="background-image: url({{image_url}}){{else}}no-cover{{/if}}" href="{{url}}">
+        <section class="post">
+            <h2>{{title}}</h2>
+            <p>{{excerpt words="19"}}&hellip;</p>
+        </section>
+    </a>
+    {{/next_post}}
+    {{#prev_post}}
+    <a class="read-next-story prev {{#if feature_image}}" style="background-image: url({{image_url}}){{else}}no-cover{{/if}}" href="{{url}}">
+        <section class="post">
+            <h2>{{title}}</h2>
+            <p>{{excerpt words="19"}}&hellip;</p>
+        </section>
+    </a>
+    {{/prev_post}}
+</aside>
+
+{{/post}}

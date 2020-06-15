@@ -1,0 +1,40 @@
+{{!< default}}
+{{! The tag above means - insert everything in this file into the {body} of the default.hbs template }}
+
+{{! The main content area on the homepage }}
+<main id="content" class="content" role="main">
+
+    {{! The tag below includes the post loop - partials/loop.hbs }}
+    {{> "loop"}}
+
+</main>
+
+<aside class="sidebar">
+  <a href="{{@blog.url}}"><img class="profile-image" src="{{@blog.logo}}" alt="" /></a>
+  <!--
+  // to display a custom image, copy the image into assets/img/profile-img.png and replace the previous line with this:
+  <img class="profile-image" src="{{asset "img/profile-image.png"}}" alt="" />
+  -->
+
+  <section class="publisher"><strong>Huseyin Polat Yuruk</strong></section>
+
+  {{navigation}}
+
+  <!--
+  // Add any other links to the sidebar, under the navigation links here.
+  // For example to allow subscribing to your blog via Feedburner and email:
+    1. register it at feedburner.com and
+    2. change the below links to point to your blog
+    3. uncomment these lines:
+   -->
+    <ul>
+      <li><a href="http://feeds.feedburner.com/HuseyinPolatYuruk" class="elusive-icon rss">Subscribe in a reader</a></li>
+      <li><a href="{{@blog.url}}/newsletter" class="elusive-icon email">Subscribe via email</a></li>
+    </ul>
+
+  <footer class="site-footer clearfix">
+      <section class="copyright"><a href="{{@blog.url}}">{{@blog.title}}</a> &copy; {{date format="YYYY"}}</section>
+      <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+  </footer>
+
+</aside>
